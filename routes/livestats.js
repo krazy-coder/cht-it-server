@@ -3,7 +3,7 @@ const axios = require('axios')
 const router = express.Router();
 
 const getData = async function() {
-    const questions = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         axios.get('http://trial-env.eba-yqrzfvys.us-east-2.elasticbeanstalk.com/livedata')
             .then(response => {
                 // resolve(response.status)
@@ -12,6 +12,7 @@ const getData = async function() {
                     reject(response)
                 } else {
                     // console.log('question.json response status = ' , response.status)
+                    // console.log(response.data)
                     resolve(response.data)
                 }
             })
@@ -24,8 +25,12 @@ const getData = async function() {
 router.get('/', function(req, res, next) {
     let sendData = {}
     console.log('/livestats GET hit')
-    getData().then(response => {sendData = response}).catch(err => console.error(err))
-    res.send(sendData)
+    getData().then(response => {
+        sendData = response
+        //console.log(response)
+        res.send(sendData)
+    }).catch(err => console.error(err))
+    
 } )
 
 module.exports = router;
