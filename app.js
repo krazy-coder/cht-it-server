@@ -20,6 +20,7 @@ app.listen(port, function() {
 })
 const qalogic = require('./routes/qalogic')
 const recievedata = require('./routes/recievedata')
+const livedata = require('./routes/livestats')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

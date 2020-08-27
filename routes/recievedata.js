@@ -1,32 +1,39 @@
 var express = require('express');
+const qs = require('querystring')
 var router = express.Router();
 
-function processData(req) {
-    let sendValue
-    if(req && req.data) {
-        sendValue = req.data
-    } else {
-        sendValue = req
-        console.log('inside else in processData')
+const pushToQuesJSON = function(obj) {
+    if(!Object.keys(qstn).length) {
+        let template = {
+            0 : obj
+        }
+        qstn = template
     }
-    return sendValue
-}
-
-let showVal = {}
+} 
+let showVal = []
+let qstn = require('../utils/question.json')
 router.get('/', function(req, res, next) {
     console.log('/recievedata endpoint hit with GET request')
-    res.send(showVal)
+    // console.log(req.query)
+    // console.log(Object.keys(qstn).length)
+    res.send(qstn)
+    
 })
 router.post('/', function(req, res, next) {
     console.log('/recievedata endpoint hit with POST request')
     let sendValue
-    try {
-        sendValue = processData(req)
-    } catch (err) {
-        sendValue = err
+    if(req && req.body) {
+        sendValue = req.body
+        console.log('when if is true in router.post')
+        qstn.push(sendValue)
+        // console.log(req.headers)
+        return res.status(200).json(sendValue)
+    } else {
+        console.log('some error')
+        console.log(req.body)
+        return res.status(500).json({ error: req })
     }
-    showVal.push(sendValue)
-    res.send(sendValue)
+    //res.write(sendValue)
 });
 
 module.exports = router;
