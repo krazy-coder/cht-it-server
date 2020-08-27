@@ -40,6 +40,7 @@ app.get('/message', (req, res) => {
 })
 app.use('/combinedqa', qalogic)
 app.use('/recievedata', recievedata)
+app.use('/livestats', livedata)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
