@@ -9,10 +9,17 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 const port = 12500;
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+})
+
 app.listen(port, function() {
     console.log('listening to port ' + port)
 })
 const qalogic = require('./routes/qalogic')
+const recievedata = require('./routes/recievedata')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -31,7 +38,7 @@ app.get('/message', (req, res) => {
     res.send("the message to be sent is wild yet it doesn't excite me!")
 })
 app.use('/combinedqa', qalogic)
-
+app.use('/recievedata', recievedata)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
