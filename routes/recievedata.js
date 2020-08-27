@@ -14,7 +14,7 @@ function processData(req) {
 
 let showVal = {}
 router.get('/', function(req, res, next) {
-    console.log('/recievedata endpoint hit with POST request')
+    console.log('/recievedata endpoint hit with GET request')
     res.send(showVal)
 })
 router.post('/', function(req, res, next) {
