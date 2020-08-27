@@ -12,14 +12,20 @@ function processData(req) {
     return sendValue
 }
 
+let showVal = {}
+router.get('/', function(req, res, next) {
+    console.log('/recievedata endpoint hit with POST request')
+    res.send(showVal)
+})
 router.post('/', function(req, res, next) {
-    console.log('/recievedata endpoint hit with GET request')
+    console.log('/recievedata endpoint hit with POST request')
     let sendValue
     try {
         sendValue = processData(req)
     } catch (err) {
         sendValue = err
     }
+    showVal.push(sendValue)
     res.send(sendValue)
 });
 
