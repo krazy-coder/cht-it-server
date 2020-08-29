@@ -3,15 +3,12 @@ const qs = require('querystring')
 var router = express.Router();
 
 const pushToQuesJSON = function(obj) {
-    if(!Object.keys(qstn).length) {
-        let template = {
-            0 : obj
-        }
-        qstn = template
-    }
+    let objk = Object.values(qstn)
+    objk.push(obj)
+    qstn = {...qstn} 
 } 
 let showVal = []
-let qstn = require('../utils/question.json')
+let qstn = require('../utils/question.json');
 router.get('/', function(req, res, next) {
     console.log('/recievedata endpoint hit with GET request')
     // console.log(req.query)
@@ -24,8 +21,8 @@ router.post('/', function(req, res, next) {
     let sendValue
     if(req && req.body) {
         sendValue = req.body
-        console.log('when if is true in router.post')
-        qstn.push(sendValue)
+        pushToQuesJSON(sendValue)
+        
         // console.log(req.headers)
         return res.status(200).json(sendValue)
     } else {
