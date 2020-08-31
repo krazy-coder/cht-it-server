@@ -4,7 +4,7 @@ const router = express.Router();
 
 const getData = async function() {
     return new Promise((resolve, reject) => {
-        axios.get('http://trial-env.eba-yqrzfvys.us-east-2.elasticbeanstalk.com/livedata')
+        axios.get('http://ec2-18-221-172-213.us-east-2.compute.amazonaws.com/livedata')
             .then(response => {
                 // resolve(response.status)
                 if(response && response.status != 200) {
